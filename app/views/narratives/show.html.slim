@@ -15,3 +15,5 @@ coffee:
   source.addEventListener 'narrative.update', (e) ->
     narrative = $.parseJSON(e.data)
     $("#narrative").html(narrative.content)
+
+  $("#narrative_word").keyup -> $(this).val($.trim($(this).val()))
