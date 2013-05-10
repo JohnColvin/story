@@ -1,0 +1,17 @@
+h2 Narrative #{@narrative.id}
+hr
+#narrative= @narrative.content
+hr
+
+h4 Add a word
+= form_for @narrative, remote: true do |f|
+  = f.text_field :content
+
+  = f.submit
+
+coffee:
+  source = new EventSource('/narratives/events')
+  source.addEventListener 'narrative.update', (e) ->
+    console.log e.data
+    narrative = $.parseJSON(e.data)
+    $("#narrative").html(narrative.content)
