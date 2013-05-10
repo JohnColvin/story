@@ -13,6 +13,5 @@ javascript:
 coffee:
   source = new EventSource('/narratives/' + narrative_id + '/events')
   source.addEventListener 'narrative.update', (e) ->
-    console.log e.data
     narrative = $.parseJSON(e.data)
     $("#narrative").html(narrative.content)
