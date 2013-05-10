@@ -7,8 +7,6 @@ h4 Add a word
 = form_for @narrative, remote: true do |f|
   = text_field_tag 'narrative[word]'
 
-  = f.submit
-
 javascript:
   narrative_id = #{@narrative.id}
 
