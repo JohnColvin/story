@@ -18,8 +18,8 @@ class NarrativesController < ApplicationController
   end
 
   def update
-    attributes = params.require(:narrative).permit(:content)
-    @narrative.content = "#{@narrative.content} #{attributes[:content]}"
+    attributes = params.require(:narrative).permit(:word)
+    @narrative.content = "#{@narrative.content} #{attributes[:word]}"
     @narrative.save
     $redis.publish("narrative.update.#{@narrative.id}", @narrative.to_json)
   end

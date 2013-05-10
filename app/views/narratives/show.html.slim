@@ -5,7 +5,7 @@ hr
 
 h4 Add a word
 = form_for @narrative, remote: true do |f|
-  = f.text_field :content
+  = text_field_tag 'narrative[word]'
 
   = f.submit
 
