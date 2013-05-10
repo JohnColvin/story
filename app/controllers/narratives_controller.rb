@@ -21,13 +21,14 @@ class NarrativesController < ApplicationController
     attributes = params.require(:narrative).permit(:content)
     @narrative.content = "#{@narrative.content} #{attributes[:content]}"
     @narrative.save
-    $redis.publish('narratives.update', @narrative.to_json)
+    $redis.publish("narrative.update.#{@narrative.id}", @narrative.to_json)
   end
 
   def events
+    narrative = Narrative.find(params[:narrative_id])
     response.headers["Content-Type"] = "text/event-stream"
     redis = Redis.new
-    redis.subscribe('narratives.update') do |on|
+    redis.subscribe("narrative.update.#{narrative.id}") do |on|
       on.message do |event, data|
         response.stream.write("event: narrative.update\n")
         response.stream.write("data: #{data}\n\n")

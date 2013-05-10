@@ -9,8 +9,11 @@ h4 Add a word
 
   = f.submit
 
+javascript:
+  narrative_id = #{@narrative.id}
+
 coffee:
-  source = new EventSource('/narratives/events')
+  source = new EventSource('/narratives/' + narrative_id + '/events')
   source.addEventListener 'narrative.update', (e) ->
     console.log e.data
     narrative = $.parseJSON(e.data)
